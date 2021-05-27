@@ -1,0 +1,25 @@
+<form [formGroup]="schedulingForm">
+    <mat-nav-list>
+        <mat-list-item *ngFor="let day of week; index as i;">
+            <!-- <mat-label> -->
+            {{day}}
+            <!-- <div #dayName>
+                {{dayName.value + " hjk "}} {{day}}
+            </div> -->
+            <!-- <select ([day])="selected.value" #selected> -->
+            <!-- [ngStyle]="{'background-color': scheduling.controls['{{day}}'].value==''? 'pink': 'red' }" -->
+            <mat-select formControlName="{{day}}">
+                <mat-option>
+                </mat-option>
+                <mat-option *ngFor="let volunteer of potentialVolunteersByDay[i]">
+                    <!-- [ngStyle]="{ 'background-color': scheduling.controls['{{day.toString()}}'].value==''? 'pink': 'red'}" -->
+
+                    {{volunteer.firstName + ' '}}{{volunteer.lastName}}
+                </mat-option>
+            </mat-select>
+            <!-- </mat-label> -->
+        </mat-list-item>
+    </mat-nav-list>
+</form>
+<button mat-button color="primary" (click)="updateScheduling()">save</button>
+<!-- <div>{{scheduling | json}}</div> -->

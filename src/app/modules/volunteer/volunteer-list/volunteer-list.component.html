@@ -1,0 +1,9 @@
+<br>
+<!-- {{this.volunteersList | json}} -->
+
+<ul>
+    VOLUNTEER LIST:
+    <li *ngFor="let volunteer of volunteerslist" (click)="showVolunteerDetails(volunteer.id)">
+        {{volunteer.id}} {{volunteer.firstName}} {{volunteer.lastName}} {{volunteer.phone}} {{volunteer.email}}
+    </li>
+</ul>
