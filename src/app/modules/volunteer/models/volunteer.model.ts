@@ -7,7 +7,6 @@ export class Volunteer{
     phone: string;
     email: string;
     volunteerWeek: boolean[];
-    day: number;
 
     constructor(id){
         this.id = id;

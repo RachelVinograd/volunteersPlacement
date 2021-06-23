@@ -1,25 +1,14 @@
-<form [formGroup]="schedulingForm">
-    <mat-nav-list>
-        <mat-list-item *ngFor="let day of week; index as i;">
-            <!-- <mat-label> -->
-            {{day}}
-            <!-- <div #dayName>
-                {{dayName.value + " hjk "}} {{day}}
-            </div> -->
-            <!-- <select ([day])="selected.value" #selected> -->
-            <!-- [ngStyle]="{'background-color': scheduling.controls['{{day}}'].value==''? 'pink': 'red' }" -->
-            <mat-select formControlName="{{day}}">
-                <mat-option>
-                </mat-option>
-                <mat-option *ngFor="let volunteer of potentialVolunteersByDay[i]">
-                    <!-- [ngStyle]="{ 'background-color': scheduling.controls['{{day.toString()}}'].value==''? 'pink': 'red'}" -->
-
-                    {{volunteer.firstName + ' '}}{{volunteer.lastName}}
-                </mat-option>
-            </mat-select>
-            <!-- </mat-label> -->
-        </mat-list-item>
-    </mat-nav-list>
-</form>
-<button mat-button color="primary" (click)="updateScheduling()">save</button>
-<!-- <div>{{scheduling | json}}</div> -->
+<ul>
+    <li *ngFor="let day of week; index as i;">
+        {{day}}
+        <!-- [value]="schedule[i]!='' && schedule[i]!=null? schedule[i].firstName: ''" -->
+        <!-- [selected]="schedule[i]" -->
+        <select name="selectV" [(ngModel)]="schedule[i]" [ngStyle]="{'background-color': schedule[i]!='' && schedule[i]!=null? 'blue': 'gray'}">
+            <option></option>
+            <option *ngFor="let volunteer of potentialVolunteersByDay[i]" [ngValue]="volunteer">
+                {{volunteer.firstName}} {{volunteer.lastName}}
+            </option>
+        </select> <br>{{schedule[i] | json}}<br>
+    </li>
+</ul>
+<button mat-button color="primary" (click)="updateSchedule()">save</button>

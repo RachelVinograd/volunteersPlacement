@@ -79,7 +79,7 @@ import { MatListModule, MatSelectionList } from '@angular/material/list';
     MatSnackBarModule,
     MatTabsModule,
     MatDialogModule,
-    MatCheckboxModule,
+    MatCheckboxModule
     // MatSelectionList
   ],
 })

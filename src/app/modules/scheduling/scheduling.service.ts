@@ -11,16 +11,10 @@ headers.append('Accept', 'application/json');
 })
 export class SchedulingService {
 
-    d:Volunteer[] = [new Volunteer(78)];
-    scheduling: BehaviorSubject<Volunteer[]> = new BehaviorSubject<Volunteer[]>(this.d);
-
     constructor(private _http: HttpClient) { 
-        this.getScheduling().subscribe(data=>{
-            this.scheduling.next(data);
-        });
     }
 
-    getScheduling(): Observable<Volunteer[]> {
+    getSchedule(): Observable<Volunteer[]> {
         return this._http.get<Volunteer[]>("api/Scheduling");
     }
 
@@ -28,14 +22,8 @@ export class SchedulingService {
         return this._http.get<Volunteer[]>("/api/Scheduling/" + day);
     }
 
-    updateSchedulig(updateSchedulig: Volunteer[]): boolean {
-        this.scheduling.next(updateSchedulig);
-        if (this._http.put<boolean>("/api/scheduling/", updateSchedulig, { headers: headers }))
-            return true;
+    updateSchedule(updateSchedule: Volunteer[]) : Observable<any> {
+        return this._http.put<boolean>("/api/scheduling/", updateSchedule, { headers: headers });
     }
-
-
-
-
 
 }

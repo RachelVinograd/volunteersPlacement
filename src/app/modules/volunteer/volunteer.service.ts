@@ -16,7 +16,6 @@ export class VolunteerService {
   constructor(private _http: HttpClient) {
     this.getVolunteersList().subscribe(data => {
       this.volunteersList.next(data);
-      console.log("volunteer list" + this.volunteersList);
     }, err => alert("ERROR getVolunteersList"));
   }
 

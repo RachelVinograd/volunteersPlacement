@@ -33,17 +33,13 @@ export class VolunteerDetailsComponent implements OnInit {
       if (paramMap.has("id"))
         this.volunteerId = +paramMap.get("id");
     });
-    console.log("onInit " + this.volunteerId)
     this._volunteerService.volunteersList.subscribe(data => {
       if (this.volunteerId) {
         this._volunteer = data.filter(x => x.id == this.volunteerId)[0];
-        console.log(this._volunteer)
       }
     }, err => alert(err.message));
     this.inintVolunteerForm();
-    console.log("this.volunteerForm", this.volunteerForm)
   }
-
 
   inintVolunteerForm() {
     if (this._volunteer != undefined) {
@@ -62,16 +58,19 @@ export class VolunteerDetailsComponent implements OnInit {
 
   saveNewVolunteerDetails() {
     this.volunteer = this.volunteerForm.value;
-    console.log("Volunteer saved" + this.volunteer);
-    this._schedulingService.scheduling.value.forEach(volunteer => {
-      if (volunteer.id == this.volunteer.id) {
-        alert("you mustn't change the day you volnteer!");
-        return;
+    let flag = false;
+    this._schedulingService.getSchedule().subscribe(data => {
+      data.forEach((volunteer, index) => {
+        if (!this.volunteer.volunteerWeek[index] && volunteer && volunteer.id == this.volunteer.id) {
+          alert("Before you cancel the volunteer day, you need to update the schedule");
+          flag = true;
+        }
+      });
+      if (!flag) {
+        this._volunteerService.saveVolunteerToList(this.volunteer);
+        this._router.navigate(["/volunteer-list"]);
       }
     });
-    this._volunteerService.saveVolunteerToList(this.volunteer);
-    console.log(this.volunteer);
-    this._router.navigate(["/volunteer-list"]);
   }
 }
 
